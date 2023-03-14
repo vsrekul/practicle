@@ -19,7 +19,7 @@ pipeline{
         stage("connect to the remote host"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_id', keyFileVariable: 'key', usernameVariable: 'ubuntu')]) {
-                    sh 'scp -i ${key} index.html ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com:/usr/share/nginx/html'
+                    sh 'scp -i ${key} index.html root@ec2-3-237-92-117.compute-1.amazonaws.com:/usr/share/nginx/html'
                 }
             }
         }
