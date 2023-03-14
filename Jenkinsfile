@@ -9,7 +9,7 @@ pipeline{
         stage("Create service from image"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt-get install httpd'
+                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt install apache2'
                     
               }                
                 
