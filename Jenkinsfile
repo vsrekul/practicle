@@ -16,18 +16,18 @@ pipeline{
                 
             }       
         }
-        stage("connect to the remote host"){
+        stage("copy the file to the remote host"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_id', keyFileVariable: 'key', usernameVariable: 'ubuntu')]) {
                     sh 'scp -i ${key} index.html ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com:'
+                    sh 'scp -i ${key} playbook.yml ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com:'
                 }
             }
         }
-        stage("move index file"){
+        stage("move index file in remote host"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo mv index.html /usr/share/nginx/html'
-                 
+                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo mv index.html /usr/share/nginx/html'                 
                     
               }                
                 

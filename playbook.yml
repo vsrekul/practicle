@@ -1,0 +1,11 @@
+---
+hosts: all
+become: true
+become_metho: sudo
+tasks:
+- name: install apache2
+  apt: name=apache2 state=latest
+- name: uninstall apache2
+  apt: name=nginx state=absent
+- name: copy the index file
+  copy: src=index.html dest=/var/www/html
