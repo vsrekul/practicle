@@ -9,7 +9,7 @@ pipeline{
         stage("Create service from image"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt-get update'
+                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no sudo apt-get update'
                     //sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt-get install nginx -y'
                     
               }                
@@ -19,15 +19,15 @@ pipeline{
         stage("copy the file to the remote host"){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_id', keyFileVariable: 'key', usernameVariable: 'ubuntu')]) {
-                    sh 'scp -i ${key} index.html ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com:'
-                    sh 'scp -i ${key} playbook.yml ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com:'
+                    sh 'scp -i ${key} index.html ubuntu@172.31.13.215:'
+                    sh 'scp -i ${key} playbook.yml ubuntu@172.31.13.215:'
                 }
             }
         }
         stage("move index file in remote host"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no Ansible-playbook playbook.yml'                 
+                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no Ansible-playbook playbook.yml'                 
                     
               }                
                 
