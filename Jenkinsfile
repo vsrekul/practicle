@@ -10,8 +10,7 @@ pipeline{
             steps{                    
               sshagent(['ssh_id']) {
                     sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no sudo apt-get update'
-                    //sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt-get install nginx -y'
-                    
+                    //sh 'ssh -t -t ubuntu@ec2-3-237-92-117.compute-1.amazonaws.com -o StrictHostKeyChecking=no sudo apt-get install nginx -y'                    
               }                
                 
             }       
@@ -27,7 +26,7 @@ pipeline{
         stage("move index file in remote host"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no ansible-playbook playbook.yml'                 
+                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no ansible-playbook playbook.yml'               
                     
               }                
                 
