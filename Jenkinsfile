@@ -27,7 +27,7 @@ pipeline{
         stage("move index file in remote host"){
             steps{                    
               sshagent(['ssh_id']) {
-                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no Ansible-playbook playbook.yml'                 
+                    sh 'ssh -t -t ubuntu@172.31.13.215 -o StrictHostKeyChecking=no ansible-playbook playbook.yml'                 
                     
               }                
                 
